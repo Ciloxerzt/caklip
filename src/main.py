@@ -209,3 +209,15 @@ def main():
 
 if __name__ == "__main__":
     main()
+# Face tracking stub (OpenCV)
+try:
+    import cv2
+except ModuleNotFoundError:
+    cv2 = None
+
+def face_track(frame):
+    if cv2 is None: return False
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    return len(faces) > 0
